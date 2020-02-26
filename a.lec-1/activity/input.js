@@ -8,21 +8,21 @@ let input=process.argv[2];
 let p=console.log;
 
 if(input=='help'){
-help.help();
+help.help(process.argv[3],process.argv[4]);
 }
 else if(input=='view'){
-    view.view();
+    view.view(process.argv[3],process.argv[4]);
     
 }
 else if(input=='treefy'){
-    treefy.treefy();
+    treefy.treefy(process.argv[3],process.argv[4]);
 }
 else if(input=='untreefy'){
-   untreefy.untreefy();
+   untreefy.untreefy(process.argv[3],process.argv[4]);
 }
 else if(input=='monitor'){
-    monitor.monitor();
+    monitor.monitor(process.argv[3],process.argv[4]);
 }
 else {
     
-}3 n
+}
