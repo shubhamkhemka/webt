@@ -1,32 +1,20 @@
 const fs=require('fs');
 const path=require('path');
-
-let fileObject={
-
-    folderName:'',
-    children:[]
-}
-async function list(src){
-    let a=fs.lstatSync(src).isDirectory();
-    if(!a){
-        const file=path.basename(src);
-        fileObject.children.push(file);
+let uniqid=require('uniqid');
+const root=require('../facts/treefy');
+// console.log(root);
+function treefy(src,dest,root){
+    if(!root.isfile){
+        fs.mkdirSync(path.join(dest,root.filename));
     }
     else{
-        const f=fs.readdirSync(src);
-        const foldername=path.basename(src);
-        for(let i=0;i<f.length;i++){
-            fileObject.children.push(f[i]);
-        }
-        fileObject.folderName=foldername;
-     for(let i=0;i<f.length;i++){
-         list(src+'\\'+f[i]);
-     }
+      fs.copyFileSync(src,path.join(dest,root.newname));
     }
-    // console.log(fileObject);
-}
-async function f1(){
-    const ans=await list("G:\\web-101\\LEC2\\SRC");
-    console.log(fileObject);
-}
-f1();
+    for(let i=0;i<root.children.length;i++){
+        treefy(path.join(src,root.children[i].filename),path.join(dest,root.filename),root.children[i]);
+    }
+
+  
+  }
+  
+treefy("G:\\web-101\\LEC2\\SRC\\D1","G:\\web-101\\a.lec-1\\facts\\copy",root);
