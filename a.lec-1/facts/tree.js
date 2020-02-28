@@ -1,28 +1,47 @@
+// let root={
+//     data:10,
+//     children:[{
+//         data:20,
+//         children:[{
+//             data:50,
+//             children:[]
+//         },{
+//             data:60,
+//             children:[]
+//         }]
+//     },{
+//         data:30,
+//         children:[
+//             {
+//                 data:70,
+//                 children:[]
+//             },
+//             {
+//                 data:80,
+//                 children:[]
+//             }
+//         ]
+//     },{
+//         data:40,
+//         children:[]
+//     }]
+// }
 const fs=require('fs');
-const path=require('path');
-let uniqid=require('uniqid');
-
-
-function list(src,dest){
-let a=fs.lstatSync(src).isDirectory();
-
-if(!a){
-    // fs.createReadStream(src).pipe(fs.createWriteStream(dest));
-    let uniqname =uniqid();
-    let f=path.basename(src);
-
-    fs.copyFileSync(src,path.join(dest,f+uniqname));
-
-    // console.log(indent+path.basename(src)+"*");
-    
+function displayTree(root){
+    if(root==null){
+        return;
+    }
+    let check=root.data+"=>";
+    for(let i=0;i<root.children.length;i++){
+        if(i==root.children.length-1){
+            check+=root.children[i].data;
+        }
+        else
+        check+=root.children[i].data+",";
+    }
+    console.log(check);
+    for(let i=0;i<root.children.length;i++){
+        displayTree(root.children[i]);
+    }
 }
-else{
-    const f=fs.readdirSync(src);
-//  console.log(indent +path.basename(src));
-// arr.push(src);
- for(let i=0;i<f.length;i++){
-     list(src+'\\'+f[i],dest);
- }
-}
-}
-list('G:\\web-101\\LEC2\\SRC\\D1','G:\\web-101\\a.lec-1\\facts\\copy')
+displayTree(root);

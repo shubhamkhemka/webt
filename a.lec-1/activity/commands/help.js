@@ -1,3 +1,3 @@
 module.exports.help=function(){
-    console.log("i am not help");
+    console.log("i will not help");
 }
